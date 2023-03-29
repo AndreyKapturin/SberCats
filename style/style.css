@@ -36,16 +36,6 @@ body {
     border-radius: 10px;
 }
 
-/* .form-container {
-    height: 350px;
-    width: 300px;
-    left: 100px;
-    top: 100px;
-    position: absolute;
-    display: none;
-} */
-
-
 #addEditCatForm {
     position: absolute;
     left: calc(50vw - 150px);
@@ -63,14 +53,19 @@ body {
     border-radius: 10px;
 }
 
-.closeForm-container{
- position: absolute;
- right: 10px;
- top: 10px
+#formCloser{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transform: scale 1s;
+}
+
+#formCloser:hover{
+    scale: 1.3;
 }
 
 .active {
-    display: block;
+    display: none;
 }
 .form-wrapper {
     display: flex;

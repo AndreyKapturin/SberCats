@@ -9,9 +9,9 @@
 </head>
 <body>
     <div id="content"></div>
-    <div class="form-container">
-    <form action="" id="addEditCatForm">
-            <img class="closeForm-container" src="images/closeCross.svg" width="20px" alt="close">
+    <div id="formContainer" class="active">
+        <form action="" id="addEditCatForm">
+            <img id="formCloser" src="images/closeCross.svg" width="20px" alt="close">
             <label for="name">Имя</label>
             <input id="name" type="text" placeholder="Введите имя котика">
 
@@ -35,7 +35,7 @@
 
             <label for="description">Описание</label>
             <textarea name="" id="description" cols="1" rows="5" placeholder="Напишите про своего котика"></textarea>
-            <button type="submit">Обновить</button>
+            <button id = "formBtn" type="submit">Обновить</button>
         </form>
     </div>
     <script src="script/script.js"></script>
