@@ -8,6 +8,37 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+    <div id="content"></div>
+    <div class="form-container">
+    <form action="" id="addEditCatForm">
+            <img class="closeForm-container" src="images/closeCross.svg" width="20px" alt="close">
+            <label for="name">Имя</label>
+            <input id="name" type="text" placeholder="Введите имя котика">
+
+            <label for="image">Ссылка на картинку</label>
+            <input id="image" type="text" placeholder="Ссылка">
+
+            <div class="form-wrapper">
+                <div class="form-inner-wrapper">
+                    <label for="age">Возраст</label>
+                    <input id="age" min="0" type="number" placeholder="Возраст">
+                </div>
+                <div class="form-inner-wrapper">
+                    <label for="rate">Рейтинг</label>
+                    <input id="rate" min="1" type="number" placeholder="Рейтинг">
+                </div>
+                <div class="form-inner-wrapper">
+                    <label for="favorite">Любимчик</label>
+                    <input id="favorite" type="checkbox">
+                </div>
+            </div>
+
+            <label for="description">Описание</label>
+            <textarea name="" id="description" cols="1" rows="5" placeholder="Напишите про своего котика"></textarea>
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
     <script src="script/script.js"></script>
+    <script src="script/modal.js"></script>
 </body>
 </html>

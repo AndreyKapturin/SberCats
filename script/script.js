@@ -82,7 +82,7 @@ class Api {
 // Вызов и проверка работоспособности запросов
 
 
-// const api = new Api (config)
+const api = new Api (config)
 // api
 //     .getAllCats()
 //     .then(res => console.log("Все все котики:",res))

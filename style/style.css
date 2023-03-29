@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    background-color: bisque;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#content {
+    height: 80vh;
+    width: 70vw;
+    /* background-color: azure; */
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.catCard {
+    height: 300px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    background-color:aliceblue;
+}
+
+.catImage {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+/* .form-container {
+    height: 350px;
+    width: 300px;
+    left: 100px;
+    top: 100px;
+    position: absolute;
+    display: none;
+} */
+
+
+#addEditCatForm {
+    position: absolute;
+    left: calc(50vw - 150px);
+    top: calc(50vh - 225px);
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: aliceblue;
+    padding: 30px;
+    border: 2px solid rgb(183, 158, 158);
+    box-shadow: 0 0 5px 5px rgb(165, 159, 159);
+    border-radius: 10px;
+}
+
+.closeForm-container{
+ position: absolute;
+ right: 10px;
+ top: 10px
+}
+
+.active {
+    display: block;
+}
+.form-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    height: 50px;
+    justify-content: space-evenly;
+}
+textarea{
+    resize: none;
+}
