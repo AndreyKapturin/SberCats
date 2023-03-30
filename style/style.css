@@ -64,7 +64,7 @@ body {
     scale: 1.3;
 }
 
-.active {
+.invisibility {
     display: none;
 }
 .form-wrapper {

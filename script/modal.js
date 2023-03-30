@@ -6,13 +6,15 @@ const addEditCatForm = document.querySelector("#addEditCatForm")
 const formCloser = document.querySelector("#formCloser")
 const formBtn = document.querySelector("#formBtn")
 
+
+
 // functions
 // Создание карточки с котом
 function createCatCard (cat) {
     return `<div class = "catCard">
         <img class = "catImage" src = "${cat.image}">
         ${cat.name}
-        <div class = "rate"><i class="fa-solid fa-star"></i></div>
+        <div class = "rate">${cat.rate}</i></div>
         <div class = "action-btn">
             <button class = "cat-view-btn" value = "${cat.id}">Посмотреть</button>
             <button class = "cat-edit-btn" value = "${cat.id}">Изменить</button>
@@ -49,19 +51,34 @@ refreshCatsAndContent()
 
 // listeners
 
-formCloser.addEventListener("click", () => formContainer.classList.toggle("active"))
+formCloser.addEventListener("click", () => formContainer.classList.toggle("invisibility"))
+
+
 
 content.addEventListener("click", (event) => {
     if (event.target.localName === "button") {
+        let catID = event.target.value;
+        console.log(catID);
         switch(event.target.className) {
             case "cat-delete-btn":
-                api.deleteCatByID(event.target.value).then(res => {
+                api.deleteCatByID(catID).then(res => {
                     refreshCatsAndContent()
                 }).catch(e => console.error(e))
             break;
             case "cat-edit-btn":
-                prefillForm(event.target.value).then(res => {
-                    formContainer.classList.toggle("active")
+                prefillForm(catID).then(() => {
+                    formContainer.classList.remove("invisibility")
+                    addEditCatForm.addEventListener("submit", (event) => {
+                        event.preventDefault()
+                        let formaa = new FormData(event.target)
+                        let newCat = Object.fromEntries(formaa)
+                        api.editCatByID(catID, newCat)
+                            .then(() => {
+                                refreshCatsAndContent();
+                                document.forms[0].reset()
+                                formContainer.classList.add("invisibility");
+                            });
+                    })
                 })
         } 
     }

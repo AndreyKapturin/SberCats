@@ -83,10 +83,10 @@ class Api {
 
 
 const api = new Api (config)
-// api
-//     .getAllCats()
-//     .then(res => console.log("Все все котики:",res))
-//     .catch(e => console.error("Ошибка:", e));
+api
+    .getAllCats()
+    .then(res => console.log("Все все котики:",res))
+    .catch(e => console.error("Ошибка:", e));
     
 // api
 //     .getCatByID(1)
@@ -100,6 +100,14 @@ const api = new Api (config)
 
 // api
 //     .addCat(jedyCat)
+//     .then(res => console.log(res.message))
+//     .catch(e => console.error("Ошибка:", e));
+// api
+//     .addCat(kusCat)
+//     .then(res => console.log(res.message))
+//     .catch(e => console.error("Ошибка:", e));
+// api
+//     .addCat(grumpyCat)
 //     .then(res => console.log(res.message))
 //     .catch(e => console.error("Ошибка:", e));
 
