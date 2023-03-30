@@ -47,12 +47,28 @@ function prefillForm(id) {
     })
 }
 
+// Внесение изменений о коте
+
+function editCat(event, catID) {
+    event.preventDefault()
+    let form = new FormData(addEditCatForm)
+    let newCat = Object.fromEntries(form)
+    api.editCatByID(catID, newCat)
+        .then(() => {
+        refreshCatsAndContent();
+        document.forms[0].reset()
+        formContainer.classList.add("invisibility");
+    });
+}
+
 refreshCatsAndContent()
 
 // listeners
 
-formCloser.addEventListener("click", () => formContainer.classList.toggle("invisibility"))
-
+formCloser.addEventListener("click", () => {
+    formContainer.classList.toggle("invisibility");
+    addEditCatForm.removeEventListener("submit", editCat(event))
+})
 
 
 content.addEventListener("click", (event) => {
@@ -68,17 +84,7 @@ content.addEventListener("click", (event) => {
             case "cat-edit-btn":
                 prefillForm(catID).then(() => {
                     formContainer.classList.remove("invisibility")
-                    addEditCatForm.addEventListener("submit", (event) => {
-                        event.preventDefault()
-                        let formaa = new FormData(event.target)
-                        let newCat = Object.fromEntries(formaa)
-                        api.editCatByID(catID, newCat)
-                            .then(() => {
-                                refreshCatsAndContent();
-                                document.forms[0].reset()
-                                formContainer.classList.add("invisibility");
-                            });
-                    })
+                    addEditCatForm.addEventListener("submit", editCat(event, catID), {once: true})
                 })
         } 
     }
