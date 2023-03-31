@@ -5,6 +5,7 @@ const formContainer = document.querySelector("#formContainer")
 const addEditCatForm = document.querySelector("#addEditCatForm")
 const formCloser = document.querySelector("#formCloser")
 const formBtn = document.querySelector("#formBtn")
+let catID
 
 
 
@@ -36,8 +37,8 @@ function refreshCatsAndContent() {
 
 // Предзаполнение формы данными о коте
 
-function prefillForm(id) {
-    return api.getCatByID(id).then(res => {
+function prefillForm(catID) {
+    return api.getCatByID(catID).then(res => {
         addEditCatForm.name.value = res.name;
         addEditCatForm.image.value = res.image;
         addEditCatForm.age.value = res.age;
@@ -47,19 +48,6 @@ function prefillForm(id) {
     })
 }
 
-// Внесение изменений о коте
-
-function editCat(event, catID) {
-    event.preventDefault()
-    let form = new FormData(addEditCatForm)
-    let newCat = Object.fromEntries(form)
-    api.editCatByID(catID, newCat)
-        .then(() => {
-        refreshCatsAndContent();
-        document.forms[0].reset()
-        formContainer.classList.add("invisibility");
-    });
-}
 
 refreshCatsAndContent()
 
@@ -67,25 +55,33 @@ refreshCatsAndContent()
 
 formCloser.addEventListener("click", () => {
     formContainer.classList.toggle("invisibility");
-    addEditCatForm.removeEventListener("submit", editCat(event))
 })
 
+addEditCatForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    let formData = new FormData(event.target)
+    let newCat = {...Object.fromEntries(formData), id: catID}
+    api.editCatByID(catID, newCat)
+    .then(res => {
+        console.log(res);
+        refreshCatsAndContent()
+        formContainer.classList.add("invisibility");
+    })
+})
 
 content.addEventListener("click", (event) => {
     if (event.target.localName === "button") {
-        let catID = event.target.value;
+        catID = event.target.value;
         console.log(catID);
         switch(event.target.className) {
             case "cat-delete-btn":
-                api.deleteCatByID(catID).then(res => {
+                api.deleteCatByID(catID).then(() => {
                     refreshCatsAndContent()
                 }).catch(e => console.error(e))
             break;
             case "cat-edit-btn":
-                prefillForm(catID).then(() => {
-                    formContainer.classList.remove("invisibility")
-                    addEditCatForm.addEventListener("submit", editCat(event, catID), {once: true})
-                })
+                prefillForm(catID);
+                formContainer.classList.remove("invisibility")
         } 
     }
 })
