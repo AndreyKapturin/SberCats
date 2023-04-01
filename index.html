@@ -19,7 +19,7 @@
             <form action="" id="editCatForm">
                 <img id="editFormCloser" src="images/closeCross.svg" width="20px" alt="close">
                 <label for="name">Имя</label>
-                <input name="name" id="name" type="text" placeholder="Введите имя котика" required>
+                <input name="name" maxlength="20" id="name" type="text" placeholder="Введите имя котика" required>
                 <label for="image">Ссылка на картинку</label>
                 <input name="image" id="image" type="text" placeholder="Ссылка" required>
                 <div class="form-wrapper">
@@ -32,8 +32,8 @@
                         <input name="rate" id="rate" min="1" max="5" type="number" placeholder="Рейтинг">
                     </div>
                     <div class="form-inner-wrapper">
-                        <label for="favorite">Любимчик</label>
-                        <input name="favorite" id="favorite" type="checkbox">
+                        <label for="favorite"><div class = "like"></div></label>
+                        <input name="favorite" id="favorite" type="hidden">
                     </div>
                 </div>
                 <label for="description">Описание</label>
@@ -70,7 +70,7 @@
         <form action="" id="addCatForm">
             <img id="addFormCloser" src="images/closeCross.svg" width="20px" alt="close">
             <label for="name">Имя</label>
-            <input name="name" id="name" type="text" placeholder="Введите имя котика" required>
+            <input name="name" maxlength="20" id="name" type="text" placeholder="Введите имя котика" required>
             <label for="image">Ссылка на картинку</label>
             <input name="image" id="image" type="text" placeholder="Ссылка" required>
             <div class="form-wrapper">
@@ -83,8 +83,8 @@
                     <input name="rate" id="rate" min="1" max="5" type="number" placeholder="Рейтинг">
                 </div>
                 <div class="form-inner-wrapper">
-                    <label for="favorite">Любимчик</label>
-                    <input name="favorite" id="favorite" type="checkbox">
+                    <label for="favorite"><div class = "like"></div></label>
+                    <input name="favorite" id="favorite" type="hidden">
                 </div>
             </div>
             <label for="description">Описание</label>

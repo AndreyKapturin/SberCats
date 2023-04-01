@@ -12,6 +12,10 @@ const addCatForm = document.querySelector("#addCatForm")
 const addFormCloser = document.querySelector("#addFormCloser")
 const starNoFill = '<img class="rateStar" src="images/rateStarNoFill.png" alt="star">'
 const starFill = '<img class="rateStar" src="images/rateStarFill.png" alt="">'
+const editFormLike = document.querySelector("#editFormContainer .like")
+const editFormFavorite = document.querySelector("#editFormContainer #favorite")
+const addFormLike = document.querySelector("#addCatFormContainer .like")
+const addFormFavorite = document.querySelector("#addCatFormContainer #favorite")
 let catID
 
 // functions
@@ -20,7 +24,10 @@ let catID
 function createCatCard(cat) {
     return `<div class = "catCard">
         <img class = "catImage" src = ${cat.image}>
+        <div class = "wrap">
         ${cat.name}
+        <div class = "like ${cat.favorite ? "on" : null}"></div>
+        </div>
         <div class = "rate">${starFill.repeat(cat.rate) + starNoFill.repeat(5-cat.rate)}</div>
         <div class = "action-btn">
             <button class = "cat-view-btn" value = "${cat.id}">Посмотреть</button>
@@ -52,6 +59,7 @@ function prefillForm(catID) {
         editCatForm.age.value = res.age;
         editCatForm.rate.value = res.rate;
         editCatForm.favorite.value = res.favorite;
+        res.favorite ? editFormLike.classList.add("on") : editFormLike.classList.remove("on");
         editCatForm.description.value = res.description;
     })
 }
@@ -91,10 +99,12 @@ editCatForm.addEventListener("submit", (event) => {
     event.preventDefault()
     let formData = new FormData(event.target)
     let newCat = { ...Object.fromEntries(formData), id: catID }
+    console.log(newCat);
     api.editCatByID(catID, newCat)
         .then(() => {
             refreshCatsAndContent()
             editformContainer.classList.add("invisibility");
+            event.target.reset()
         })
 })
 
@@ -151,7 +161,23 @@ content.addEventListener("click", (event) => {
             case "cat-view-btn":
                 showCatInfo(catID)
                 .then(() => aboutCatModal.classList.remove("invisibility"))
+                break;
+            default:
+                console.error("Котиков не будет!");
         }
     }
 })
 
+// Слушатель лайка в форме редактирования
+
+editFormLike.addEventListener("click", () => {
+    editFormFavorite.value = editFormFavorite.value === "true" ? "false" : "true"
+    editFormLike.classList.toggle("on")
+})
+
+// Слушатель лайка в форме добавления
+
+addFormLike.addEventListener("click", () => {
+    addFormFavorite.value = addFormFavorite.value === "true" ? "false" : "true"
+    addFormLike.classList.toggle("on")
+})
