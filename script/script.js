@@ -83,10 +83,10 @@ class Api {
 
 
 const api = new Api (config)
-api
-    .getAllCats()
-    .then(res => console.log("Все все котики:",res))
-    .catch(e => console.error("Ошибка:", e));
+// api
+//     .getAllCats()
+//     .then(res => console.log("Все все котики:",res))
+//     .catch(e => console.error("Ошибка:", e));
     
 // api
 //     .getCatByID(1)

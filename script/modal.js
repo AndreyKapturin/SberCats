@@ -3,14 +3,15 @@
 const content = document.querySelector("#content")
 const editformContainer = document.querySelector("#editFormContainer")
 const editCatForm = document.querySelector("#editCatForm")
-const formCloser = document.querySelector("#formCloser")
-const aboutCatModal = document.querySelector(".aboutCatModal")
+const editFormCloser = document.querySelector("#editFormCloser")
+const aboutCatModal = document.querySelector("#aboutCatModal")
 const aboutCatCloser = document.querySelector("#aboutCatCloser")
 const addCatButton = document.querySelector("#addCatButton")
 const addCatFormContainer = document.querySelector("#addCatFormContainer")
 const addCatForm = document.querySelector("#addCatForm")
 const addFormCloser = document.querySelector("#addFormCloser")
-
+const starNoFill = '<img class="rateStar" src="images/rateStarNoFill.png" alt="star">'
+const starFill = '<img class="rateStar" src="images/rateStarFill.png" alt="">'
 let catID
 
 // functions
@@ -18,9 +19,9 @@ let catID
 // Создание карточки с котом
 function createCatCard(cat) {
     return `<div class = "catCard">
-        <img class = "catImage" src = ${cat.image === null ? defaultCatImage : cat.image}>
+        <img class = "catImage" src = ${cat.image}>
         ${cat.name}
-        <div class = "rate">${cat.rate}</i></div>
+        <div class = "rate">${starFill.repeat(cat.rate) + starNoFill.repeat(5-cat.rate)}</div>
         <div class = "action-btn">
             <button class = "cat-view-btn" value = "${cat.id}">Посмотреть</button>
             <button class = "cat-edit-btn" value = "${cat.id}">Изменить</button>
@@ -40,7 +41,9 @@ function refreshCatsAndContent() {
     })
 }
 
-// Предзаполнение формы данными о коте
+refreshCatsAndContent()
+
+// Предзаполнение формы редактирования данными о коте
 
 function prefillForm(catID) {
     return api.getCatByID(catID).then(res => {
@@ -60,7 +63,7 @@ function showCatInfo(catID) {
     .then(cat => {
         document.querySelector(".catInfoName").textContent = cat.name
         document.querySelector(".catInfoAge").textContent = cat.age
-        document.querySelector(".catInfoRate").textContent = cat.rate
+        document.querySelector(".catInfoRate").innerHTML = starFill.repeat(cat.rate) + starNoFill.repeat(5-cat.rate)
         document.querySelector(".catInfoDescription").textContent = cat.description
         document.querySelector(".catImageBig").src = cat.image
     })
@@ -74,13 +77,15 @@ function getNewCatID() {
     .then(res => Math.max(...res) + 1)
 }
 
-refreshCatsAndContent()
 
 // listeners
+// Слушатель кнопки закрытия в форме редактирования
 
-formCloser.addEventListener("click", () => {
-    editformContainer.classList.toggle("invisibility");
+editFormCloser.addEventListener("click", () => {
+    editformContainer.classList.add("invisibility");
 })
+
+// Слушатель кнопки отправки в форме редактирования
 
 editCatForm.addEventListener("submit", (event) => {
     event.preventDefault()
@@ -93,13 +98,19 @@ editCatForm.addEventListener("submit", (event) => {
         })
 })
 
+// Слушатель кнопки закрытия в окне информации о коте
+
 aboutCatCloser.addEventListener("click", () =>{
     aboutCatModal.classList.add("invisibility")
 })
 
+// Слушатель кнопки добавления кота
+
 addCatButton.addEventListener("click", () => {
     addCatFormContainer.classList.remove("invisibility");
 })
+
+// Слушатель кнопки отправки в форме добавления кота
 
 addCatForm.addEventListener("submit", (event) => {
     event.preventDefault()
@@ -116,10 +127,13 @@ addCatForm.addEventListener("submit", (event) => {
     })
 })
 
+// Слушатель кнопки закрытия в добавления кота
+
 addFormCloser.addEventListener("click", () =>{
     addCatFormContainer.classList.add("invisibility");
 })
 
+// Слушатель кнопок карточек котов
 
 content.addEventListener("click", (event) => {
     if (event.target.localName === "button") {

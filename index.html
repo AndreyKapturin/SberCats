@@ -15,37 +15,36 @@
     <main>
     <div id="content"></div>
     <div id="editFormContainer" class="invisibility">
-        <form action="" id="editCatForm">
-            <img id="formCloser" src="images/closeCross.svg" width="20px" alt="close">
-            <label for="name">Имя</label>
-            <input name="name" id="name" type="text" placeholder="Введите имя котика">
-
-            <label for="image">Ссылка на картинку</label>
-            <input name="image" id="image" type="text" placeholder="Ссылка">
-
-            <div class="form-wrapper">
-                <div class="form-inner-wrapper">
-                    <label for="age">Возраст</label>
-                    <input name="age" id="age" min="0" type="number" placeholder="Возраст">
+        <div class="blur"></div>
+            <form action="" id="editCatForm">
+                <img id="editFormCloser" src="images/closeCross.svg" width="20px" alt="close">
+                <label for="name">Имя</label>
+                <input name="name" id="name" type="text" placeholder="Введите имя котика" required>
+                <label for="image">Ссылка на картинку</label>
+                <input name="image" id="image" type="text" placeholder="Ссылка" required>
+                <div class="form-wrapper">
+                    <div class="form-inner-wrapper">
+                        <label for="age">Возраст</label>
+                        <input name="age" id="age" min="0" type="number" placeholder="Возраст">
+                    </div>
+                    <div class="form-inner-wrapper">
+                        <label for="rate">Рейтинг</label>
+                        <input name="rate" id="rate" min="1" max="5" type="number" placeholder="Рейтинг">
+                    </div>
+                    <div class="form-inner-wrapper">
+                        <label for="favorite">Любимчик</label>
+                        <input name="favorite" id="favorite" type="checkbox">
+                    </div>
                 </div>
-                <div class="form-inner-wrapper">
-                    <label for="rate">Рейтинг</label>
-                    <input name="rate" id="rate" min="1" type="number" placeholder="Рейтинг">
-                </div>
-                <div class="form-inner-wrapper">
-                    <label for="favorite">Любимчик</label>
-                    <input name="favorite" id="favorite" type="checkbox">
-                </div>
-            </div>
-
-            <label for="description">Описание</label>
-            <textarea name="description" id="description" cols="1" rows="5"
-                placeholder="Напишите про своего котика"></textarea>
-            <button name="submit-btn" id="formBtn" type="submit">Обновить</button>
-        </form>
-    </div>
-    <div class="aboutCatModal invisibility">
-        <div class="aboutCatContainer">
+                <label for="description">Описание</label>
+                <textarea name="description" id="description" cols="1" rows="5"
+                    placeholder="Напишите про своего котика"></textarea>
+                <button name="submit-btn" id="formBtn" type="submit">Обновить</button>
+            </form>
+        </div>
+    <div id="aboutCatModal" class="invisibility">
+        <div class="blur"></div>
+        <div id="aboutCatContainer">
             <img id="aboutCatCloser" src="images/closeCross.svg" alt="close">
             <div class="catInfo">
                 <dl>
@@ -67,14 +66,13 @@
         </div>
     </div>
     <div id="addCatFormContainer" class="invisibility">
+        <div class="blur"></div>
         <form action="" id="addCatForm">
             <img id="addFormCloser" src="images/closeCross.svg" width="20px" alt="close">
             <label for="name">Имя</label>
-            <input name="name" id="name" type="text" placeholder="Введите имя котика">
-
+            <input name="name" id="name" type="text" placeholder="Введите имя котика" required>
             <label for="image">Ссылка на картинку</label>
-            <input name="image" id="image" type="text" placeholder="Ссылка">
-
+            <input name="image" id="image" type="text" placeholder="Ссылка" required>
             <div class="form-wrapper">
                 <div class="form-inner-wrapper">
                     <label for="age">Возраст</label>
@@ -82,14 +80,13 @@
                 </div>
                 <div class="form-inner-wrapper">
                     <label for="rate">Рейтинг</label>
-                    <input name="rate" id="rate" min="1" type="number" placeholder="Рейтинг">
+                    <input name="rate" id="rate" min="1" max="5" type="number" placeholder="Рейтинг">
                 </div>
                 <div class="form-inner-wrapper">
                     <label for="favorite">Любимчик</label>
                     <input name="favorite" id="favorite" type="checkbox">
                 </div>
             </div>
-
             <label for="description">Описание</label>
             <textarea name="description" id="description" cols="1" rows="5"
                 placeholder="Напишите про своего котика"></textarea>
