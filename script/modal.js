@@ -1,19 +1,24 @@
 // constants
 
 const content = document.querySelector("#content")
-const formContainer = document.querySelector("#formContainer")
-const addEditCatForm = document.querySelector("#addEditCatForm")
+const editformContainer = document.querySelector("#editFormContainer")
+const editCatForm = document.querySelector("#editCatForm")
 const formCloser = document.querySelector("#formCloser")
-const formBtn = document.querySelector("#formBtn")
+const aboutCatModal = document.querySelector(".aboutCatModal")
+const aboutCatCloser = document.querySelector("#aboutCatCloser")
+const addCatButton = document.querySelector("#addCatButton")
+const addCatFormContainer = document.querySelector("#addCatFormContainer")
+const addCatForm = document.querySelector("#addCatForm")
+const addFormCloser = document.querySelector("#addFormCloser")
+
 let catID
 
-
-
 // functions
+
 // Создание карточки с котом
-function createCatCard (cat) {
+function createCatCard(cat) {
     return `<div class = "catCard">
-        <img class = "catImage" src = "${cat.image}">
+        <img class = "catImage" src = ${cat.image === null ? defaultCatImage : cat.image}>
         ${cat.name}
         <div class = "rate">${cat.rate}</i></div>
         <div class = "action-btn">
@@ -39,49 +44,100 @@ function refreshCatsAndContent() {
 
 function prefillForm(catID) {
     return api.getCatByID(catID).then(res => {
-        addEditCatForm.name.value = res.name;
-        addEditCatForm.image.value = res.image;
-        addEditCatForm.age.value = res.age;
-        addEditCatForm.rate.value = res.rate;
-        addEditCatForm.favorite.value = res.favorite;
-        addEditCatForm.description.value = res.description;
+        editCatForm.name.value = res.name;
+        editCatForm.image.value = res.image;
+        editCatForm.age.value = res.age;
+        editCatForm.rate.value = res.rate;
+        editCatForm.favorite.value = res.favorite;
+        editCatForm.description.value = res.description;
     })
 }
 
+// Отображение информации о коте
+
+function showCatInfo(catID) {
+    return api.getCatByID(catID)
+    .then(cat => {
+        document.querySelector(".catInfoName").textContent = cat.name
+        document.querySelector(".catInfoAge").textContent = cat.age
+        document.querySelector(".catInfoRate").textContent = cat.rate
+        document.querySelector(".catInfoDescription").textContent = cat.description
+        document.querySelector(".catImageBig").src = cat.image
+    })
+    
+}
+
+// Получение нового ID
+
+function getNewCatID() {
+    return api.getCatsIDs()
+    .then(res => Math.max(...res) + 1)
+}
 
 refreshCatsAndContent()
 
 // listeners
 
 formCloser.addEventListener("click", () => {
-    formContainer.classList.toggle("invisibility");
+    editformContainer.classList.toggle("invisibility");
 })
 
-addEditCatForm.addEventListener("submit", (event) => {
+editCatForm.addEventListener("submit", (event) => {
     event.preventDefault()
     let formData = new FormData(event.target)
-    let newCat = {...Object.fromEntries(formData), id: catID}
+    let newCat = { ...Object.fromEntries(formData), id: catID }
     api.editCatByID(catID, newCat)
+        .then(() => {
+            refreshCatsAndContent()
+            editformContainer.classList.add("invisibility");
+        })
+})
+
+aboutCatCloser.addEventListener("click", () =>{
+    aboutCatModal.classList.add("invisibility")
+})
+
+addCatButton.addEventListener("click", () => {
+    addCatFormContainer.classList.remove("invisibility");
+})
+
+addCatForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    getNewCatID()
     .then(res => {
-        console.log(res);
-        refreshCatsAndContent()
-        formContainer.classList.add("invisibility");
+        let formData = new FormData(event.target)
+        let newCat = { ...Object.fromEntries(formData), id: res }
+        api.addCat(newCat)
+        .then(() =>{
+            refreshCatsAndContent()
+            addCatFormContainer.classList.add("invisibility")
+            addCatForm.reset()
+        })
     })
 })
 
+addFormCloser.addEventListener("click", () =>{
+    addCatFormContainer.classList.add("invisibility");
+})
+
+
 content.addEventListener("click", (event) => {
     if (event.target.localName === "button") {
-        catID = event.target.value;
-        console.log(catID);
-        switch(event.target.className) {
+        catID = Number(event.target.value);
+        switch (event.target.className) {
             case "cat-delete-btn":
                 api.deleteCatByID(catID).then(() => {
                     refreshCatsAndContent()
                 }).catch(e => console.error(e))
-            break;
+                break;
             case "cat-edit-btn":
-                prefillForm(catID);
-                formContainer.classList.remove("invisibility")
-        } 
+                prefillForm(catID)
+                .then(() => editformContainer.classList.remove("invisibility"))
+                break;
+            case "cat-view-btn":
+                showCatInfo(catID)
+                .then(() => aboutCatModal.classList.remove("invisibility"))
+        }
     }
 })
+

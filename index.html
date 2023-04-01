@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+    <header>
+        <div class="logo"></div>
+            <button id="addCatButton" type="button">Добавить кота</button>
+    </header>
+    <main>
     <div id="content"></div>
-    <div id="formContainer" class="invisibility">
-        <form action="" id="addEditCatForm">
+    <div id="editFormContainer" class="invisibility">
+        <form action="" id="editCatForm">
             <img id="formCloser" src="images/closeCross.svg" width="20px" alt="close">
             <label for="name">Имя</label>
             <input name="name" id="name" type="text" placeholder="Введите имя котика">
@@ -34,10 +39,65 @@
             </div>
 
             <label for="description">Описание</label>
-            <textarea name="description" id="description" cols="1" rows="5" placeholder="Напишите про своего котика"></textarea>
-            <button name ="submit-btn" id = "formBtn" type="submit">Обновить</button>
+            <textarea name="description" id="description" cols="1" rows="5"
+                placeholder="Напишите про своего котика"></textarea>
+            <button name="submit-btn" id="formBtn" type="submit">Обновить</button>
         </form>
     </div>
+    <div class="aboutCatModal invisibility">
+        <div class="aboutCatContainer">
+            <img id="aboutCatCloser" src="images/closeCross.svg" alt="close">
+            <div class="catInfo">
+                <dl>
+                    <dt>Имя:</dt>
+                    <dd class="catInfoName">Безымянный котик</dd>
+                    <dt>Возраст:</dt>
+                    <dd class="catInfoAge">Информации о возрасте нет</dd>
+                    <dt>Рейтинг:</dt>
+                    <dd class="catInfoRate">Информации о рейтинге нет</dd>
+                    <dt>Описание:</dt>
+                    <dd class="catInfoDescription">Информации о коте нет</dd>
+                </dl>
+            </div>
+            <div class="catImageContainer">
+                <img class="catImageBig"
+                    src=""
+                    alt="cat">
+            </div>
+        </div>
+    </div>
+    <div id="addCatFormContainer" class="invisibility">
+        <form action="" id="addCatForm">
+            <img id="addFormCloser" src="images/closeCross.svg" width="20px" alt="close">
+            <label for="name">Имя</label>
+            <input name="name" id="name" type="text" placeholder="Введите имя котика">
+
+            <label for="image">Ссылка на картинку</label>
+            <input name="image" id="image" type="text" placeholder="Ссылка">
+
+            <div class="form-wrapper">
+                <div class="form-inner-wrapper">
+                    <label for="age">Возраст</label>
+                    <input name="age" id="age" min="0" type="number" placeholder="Возраст">
+                </div>
+                <div class="form-inner-wrapper">
+                    <label for="rate">Рейтинг</label>
+                    <input name="rate" id="rate" min="1" type="number" placeholder="Рейтинг">
+                </div>
+                <div class="form-inner-wrapper">
+                    <label for="favorite">Любимчик</label>
+                    <input name="favorite" id="favorite" type="checkbox">
+                </div>
+            </div>
+
+            <label for="description">Описание</label>
+            <textarea name="description" id="description" cols="1" rows="5"
+                placeholder="Напишите про своего котика"></textarea>
+            <button name="submit-btn" id="formBtn" type="submit">Обновить</button>
+        </form>
+    </div>
+</main>
+<footer></footer>
     <script src="script/script.js"></script>
     <script src="script/modal.js"></script>
 </body>
