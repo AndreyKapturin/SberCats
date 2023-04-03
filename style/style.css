@@ -72,14 +72,14 @@ main{
     height: 20px;
     width: 20px;
     padding-left: 20px;
-    background-image: url("/images/likeNoFill.png");
+    background-image: url(../images/likeNoFill.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .on{
-    background-image: url("/images/likeFill.png");
+    background-image: url(../images/likeFill.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
