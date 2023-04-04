@@ -33,7 +33,6 @@ main{
     background-color: bisque;
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 80vh;
 }
 
@@ -147,15 +146,16 @@ textarea{
 }
 
 #aboutCatContainer{
-    width: 50vw;
-    height: 60vh;
+    width: auto;
+    height: auto;
     box-shadow: 0 0 5px 5px rgb(153, 152, 152);
     border-radius: 10px;
     background-color: aliceblue;
     position: absolute;
     display: flex;
     justify-content: space-evenly;
-    padding: 20px 10px 20px 30px;
+    padding: 25px;
+    gap: 30px;
 }
 
 #aboutCatCloser{
@@ -174,23 +174,22 @@ textarea{
 }
 
 .catInfo{
-    min-width: 350px;
+    min-width: 250px;
+    max-width: 100%;
     border-radius: 10px;
-    padding: 10px;
     align-self: stretch;
     box-shadow: 0 0 5px 5px rgb(153, 152, 152);
+    height: auto;
 }
 
 .catImageContainer{
     display: flex;
-    justify-content: center;
-    align-items: center;
-   
+    justify-content: space-between;
+    max-width: 450px;
 }
 
 .catImageBig{
-    width: 90%;
-    height: 90%;
+    width: 100%;
     border-radius: 10px;
     box-shadow: 0 0 5px 5px rgb(153, 152, 152);
 }
@@ -244,4 +243,10 @@ footer{
     width: 100vw;
     background-color: azure;
     opacity: 0.9;
+}
+
+@media (max-width: 1200px) {
+    #aboutCatContainer{
+        flex-direction: column;
+    }
 }
