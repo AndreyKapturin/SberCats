@@ -101,8 +101,13 @@ function showCatInfoSync(catID) {
 
 function getNewCatIDSync() {
     const allCats = JSON.parse(localStorage.cats)
-    const allCatsIds = allCats.map(el => el.id)
+    console.log(allCats);
+    if (allCats.length === 0) {
+        return 1
+    } else {
+        const allCatsIds = allCats.map(el => el.id)
     return Math.max(...allCatsIds) + 1
+    }
 }
 
 // Добавление кота в LocalStorage
