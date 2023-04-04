@@ -1,0 +1,256 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+header{
+    width: 100vw;
+    height: 10vh;
+    background-color: chocolate;
+    position: relative;
+    display: flex;
+}
+
+.logo{
+    position: absolute;
+    left: 100px;
+    width: 14.5vh;
+    height: 14.5vh;
+    background: url(https://i.pinimg.com/originals/5f/0c/d3/5f0cd330e5ebf888519ed796d4f78847.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#addCatButton{
+    position: absolute;
+    right: 15vw;
+    align-self: center;
+    border-radius: 5px;
+}
+
+main{
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+#content {
+    height: auto;
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 30px;
+}
+
+.catCard {
+    height: 330px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 5px 5px rgb(153, 152, 152);
+    border-radius: 10px;
+    justify-content: space-evenly;
+    background-color:aliceblue;
+}
+
+.rateStar{
+    height: 20px;
+    width: 20px;
+}
+
+.wrap{
+    display: flex;
+}
+
+.like{
+    height: 20px;
+    width: 20px;
+    padding-left: 20px;
+    background-image: url(../images/likeNoFill.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.on{
+    background-image: url(../images/likeFill.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.catCard button{
+    border-radius: 10px;
+}
+
+.catImage {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+#editCatForm {
+    position: absolute;
+    left: calc(50vw - 180px);
+    top: calc(50vh - 200px);
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: aliceblue;
+    padding: 30px;
+    border: 2px solid rgb(183, 158, 158);
+    box-shadow: 0 0 5px 5px rgb(165, 159, 159);
+    border-radius: 10px;
+}
+
+#editFormCloser{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.5s;
+}
+
+#editFormCloser:hover{
+    scale: 1.3;
+    transform: rotate(360deg);
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    height: 50px;
+    justify-content: space-evenly;
+}
+textarea{
+    resize: none;
+}
+
+#aboutCatModal{
+    position: absolute;
+    width: max-content;
+    height: 100vh;
+}
+
+#aboutCatContainer{
+    width: auto;
+    height: auto;
+    box-shadow: 0 0 5px 5px rgb(153, 152, 152);
+    border-radius: 10px;
+    background-color: aliceblue;
+    position: sticky;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 30px;
+    gap: 30px;
+}
+
+#aboutCatCloser{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.5s;
+    height: 20px;
+    width: 20px;
+
+}
+
+#aboutCatCloser:hover{
+    scale: 1.3;
+    transform: rotate(360deg);
+}
+
+.catInfo{
+    min-width: 250px;
+    max-width: 100%;
+    border-radius: 10px;
+    align-self: stretch;
+    box-shadow: 0 0 5px 5px rgb(153, 152, 152);
+    height: auto;
+}
+
+.catInfo dl {
+    padding: 10px;
+}
+
+.catImageContainer{
+    display: flex;
+    justify-content: space-between;
+    max-width: 450px;
+}
+
+.catImageBig{
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 5px rgb(153, 152, 152);
+}
+
+#addCatForm {
+    position: absolute;
+    left: calc(50vw - 180px);
+    top: calc(50vh - 200px);
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: aliceblue;
+    padding: 30px;
+    border: 2px solid rgb(183, 158, 158);
+    box-shadow: 0 0 5px 5px rgb(165, 159, 159);
+    border-radius: 10px;
+}
+
+#addFormCloser{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.5s;
+    height: 20px;
+    width: 20px;
+}
+
+#addFormCloser:hover{
+    scale: 1.3;
+    transform: rotate(360deg);
+}
+
+.invisibility {
+    display: none;
+}
+
+footer{
+    width: 100vw;
+    height: 10vh;
+    background-color: chocolate;
+}
+
+.blur{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: azure;
+    opacity: 0.9;
+}
+
+@media (max-width: 1200px) {
+    #aboutCatContainer{
+        flex-direction: column;
+    }
+}
