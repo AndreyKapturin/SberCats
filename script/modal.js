@@ -42,6 +42,7 @@ function createCatCard(cat) {
 function refreshCatsAndContent() {
     content.innerHTML = ""
     api.getAllCats().then(res => {
+        console.log(res);
         return content.innerHTML = res.reduce((str, el) => {
             return str += createCatCard(el)
         }, "")

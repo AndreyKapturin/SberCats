@@ -20,11 +20,6 @@ const localStorage = window.localStorage
 let catID
 
 
-// api.getAllCats()
-// .then(res => localStorage.setItem("cats", JSON.stringify(res)))
-console.log(localStorage);
-
-
 // functions
 
 // Создание карточки с котом
@@ -56,22 +51,165 @@ function refreshCatsAndContent() {
     })
 }
 
+refreshCatsAndContent()
+
+// Обновление контента синхронно 
+
+function refreshCatsAndContentSync() {
+    content.innerHTML = ""
+    const allCats = JSON.parse(localStorage.cats)
+        return content.innerHTML = allCats.reduce((str, el) => {
+            return str += createCatCard(el)
+        }, "")
+}
+
+// Внесение изменений в LocalStorage
+
+function editCatByIDSync(catID, newCat) {
+    let allCats = JSON.parse(localStorage.cats)
+    let newAllCats = allCats.map(el => el.id === catID ? el = {...newCat} : el)
+    return localStorage.setItem("cats", JSON.stringify(newAllCats))
+}
+
+// Предзаполнение формы редактирования данными о коте
+
+function prefillFormSync(catID) {
+    const allCats = JSON.parse(localStorage.cats)
+    const cat = allCats.find(el => el.id === catID)
+        editCatForm.name.value = cat.name;
+        editCatForm.image.value = cat.image;
+        editCatForm.age.value = cat.age;
+        editCatForm.rate.value = cat.rate;
+        editCatForm.favorite.value = cat.favorite;
+        cat.favorite ? editFormLike.classList.add("on") : editFormLike.classList.remove("on");
+        editCatForm.description.value = cat.description;
+}
+
 // Отображение информации о коте
 
 function showCatInfoSync(catID) {
-    return api.getCatByID(catID)
-    .then(cat => {
-        document.querySelector(".catInfoName").textContent = cat.name
-        document.querySelector(".catInfoAge").textContent = cat.age
-        document.querySelector(".catInfoRate").innerHTML = starFill.repeat(cat.rate) + starNoFill.repeat(5-cat.rate)
-        document.querySelector(".catInfoDescription").textContent = cat.description
-        document.querySelector(".catImageBig").src = cat.image
-    })
-    
+    const allCats = JSON.parse(localStorage.cats)
+    const cat = allCats.find(el => el.id === catID)
+    document.querySelector(".catInfoName").textContent = cat.name
+    document.querySelector(".catInfoAge").textContent = cat.age
+    document.querySelector(".catInfoRate").innerHTML = starFill.repeat(cat.rate) + starNoFill.repeat(5-cat.rate)
+    document.querySelector(".catInfoDescription").textContent = cat.description
+    document.querySelector(".catImageBig").src = cat.image
 }
 
-refreshCatsAndContent()
+// Получение нового ID
 
-const cats = JSON.parse(localStorage.cats)
+function getNewCatIDSync() {
+    const allCats = JSON.parse(localStorage.cats)
+    const allCatsIds = allCats.map(el => el.id)
+    return Math.max(...allCatsIds) + 1
+}
 
-console.log(cats);
+// Добавление кота в LocalStorage
+
+function addCatSync(newCat) {
+    const allCats = JSON.parse(localStorage.cats)
+    allCats.push(newCat)
+    return localStorage.setItem("cats", JSON.stringify(allCats))
+}
+
+// Удаление кота в LocalStorage
+
+function deleteCatSync(catID) {
+    const allCats = JSON.parse(localStorage.cats)
+    const filterCats = allCats.filter(el => el.id != catID)
+    return localStorage.setItem("cats", JSON.stringify(filterCats))
+}
+
+// listeners
+// Слушатель кнопки закрытия в форме редактирования
+
+editFormCloser.addEventListener("click", () => {
+    editformContainer.classList.add("invisibility");
+})
+
+// Слушатель кнопки отправки в форме редактирования синхронно
+
+editCatForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    let formData = new FormData(event.target)
+    let newCat = { ...Object.fromEntries(formData), id: catID,
+    favorite: editFormFavorite.value === "true" ? true : false }
+    api.editCatByID(catID, newCat)
+    editCatByIDSync(catID, newCat)
+    refreshCatsAndContentSync()
+    editformContainer.classList.add("invisibility");
+    addFormLike.classList.remove("on")
+    event.target.reset()
+})
+
+// Слушатель кнопки закрытия в окне информации о коте
+
+aboutCatCloser.addEventListener("click", () =>{
+    aboutCatModal.classList.add("invisibility")
+})
+
+// Слушатель кнопки добавления кота
+
+addCatButton.addEventListener("click", () => {
+    addCatFormContainer.classList.remove("invisibility");
+})
+
+// Слушатель кнопки отправки в форме добавления кота
+
+addCatForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    let formData = new FormData(event.target)
+    let newCat = { ...Object.fromEntries(formData), id: getNewCatIDSync(),
+        favorite: addFormFavorite.value === "true" ? true : false }
+    api.addCat(newCat)
+    addCatSync(newCat)
+    refreshCatsAndContentSync()
+    addCatFormContainer.classList.add("invisibility")
+    addCatForm.reset()
+})
+
+// Слушатель кнопки закрытия в добавления кота
+
+addFormCloser.addEventListener("click", () =>{
+    addCatFormContainer.classList.add("invisibility");
+})
+
+// Слушатель кнопок карточек котов
+
+content.addEventListener("click", (event) => {
+    if (event.target.localName === "button") {
+        catID = Number(event.target.value);
+        switch (event.target.className) {
+            case "cat-delete-btn":
+                api.deleteCatByID(catID)
+                deleteCatSync(catID)
+                refreshCatsAndContentSync()
+                break;
+            case "cat-edit-btn":
+                prefillFormSync(catID)
+                editformContainer.classList.remove("invisibility")
+                break;
+            case "cat-view-btn":
+                showCatInfoSync(catID)
+                aboutCatModal.classList.remove("invisibility")
+                break;
+            default:
+                console.error("Котиков не будет!");
+        }
+    }
+})
+
+// Слушатель лайка в форме редактирования
+
+editFormLike.addEventListener("click", () => {
+    editFormFavorite.value = editFormFavorite.value === "true" ? "false" : "true"
+    editFormLike.classList.toggle("on")
+})
+
+// Слушатель лайка в форме добавления
+
+addFormLike.addEventListener("click", () => {
+    addFormFavorite.value = addFormFavorite.value === "true" ? "false" : "true"
+    addFormLike.classList.toggle("on")
+})
