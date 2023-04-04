@@ -141,8 +141,8 @@ textarea{
 
 #aboutCatModal{
     position: absolute;
-    width: 50vw;
-    height: 60vh;
+    width: max-content;
+    height: 100vh;
 }
 
 #aboutCatContainer{
@@ -151,10 +151,10 @@ textarea{
     box-shadow: 0 0 5px 5px rgb(153, 152, 152);
     border-radius: 10px;
     background-color: aliceblue;
-    position: absolute;
+    position: sticky;
     display: flex;
     justify-content: space-evenly;
-    padding: 25px;
+    padding: 30px;
     gap: 30px;
 }
 
@@ -180,6 +180,10 @@ textarea{
     align-self: stretch;
     box-shadow: 0 0 5px 5px rgb(153, 152, 152);
     height: auto;
+}
+
+.catInfo dl {
+    padding: 10px;
 }
 
 .catImageContainer{
